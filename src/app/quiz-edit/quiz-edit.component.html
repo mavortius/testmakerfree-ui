@@ -1,0 +1,25 @@
+<h2>{{title}}</h2>
+<div class="quiz-edit">
+  <div>
+    <label for="title">Quiz title:</label>
+    <br>
+    <input type="text" id="title" [(ngModel)]="quiz.title" placeholder="Choose a title..."/>
+  </div>
+  <div>
+    <label for="description">Quiz description:</label>
+    <br>
+    <input type="text" id="description" [(ngModel)]="quiz.description" placeholder="Enter a description..."/>
+  </div>
+  <div>
+    <label for="text">Quiz informative text:</label>
+    <br>
+    <textarea id="text" [(ngModel)]="quiz.text" placeholder="Enter a text..."></textarea>
+  </div>
+  <div>
+    <input *ngIf="editMode" type="button" value="Apply Changes" (click)="onSubmit(quiz)"/>
+    <input *ngIf="!editMode" type="button" value="Create the Quiz!" (click)="onSubmit(quiz)"/>
+    <input type="button" value="Cancel" (click)="onBack()"/>
+  </div>
+  <app-question-list *ngIf="editMode" [quiz]="quiz"></app-question-list>
+  <app-result-list *ngIf="editMode" [quiz]="quiz"></app-result-list>
+</div>
