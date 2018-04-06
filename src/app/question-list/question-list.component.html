@@ -11,8 +11,8 @@
     <tr *ngFor="let question of questions">
       <td>{{question.text}}</td>
       <td>
-        <input type="button" value="Edit" (click)="onEdit(question)"/>
-        <input type="button" value="Delete" (click)="onDelete(question)"/>
+        <input type="button" value="Edit" (click)="onEdit(question)" class="btn btn-xs btn-warning"/>
+        <input type="button" value="Delete" (click)="onDelete(question)" class="btn btn-xs btn-danger"/>
       </td>
     </tr>
     </tbody>
@@ -22,4 +22,7 @@
   This quiz has no questions (yet):
   click the <strong>Add a new Question</strong> button to add the first one!
 </div>
-<input type="button" value="Add a new Question" (click)="onCreate()"/>
+<button (click)="onCreate()" class="btn btn-sm btn-primary">
+  <span class="glyphicon glyphicon-plus-sign"></span>
+  Add a new Question
+</button>

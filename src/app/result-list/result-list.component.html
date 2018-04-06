@@ -20,8 +20,8 @@
       <td *ngIf="result.maxValue !== null">
         {{result.maxValue}}
       </td>
-      <td><input type="button" value="Edit" (click)="onEdit(result)"/>
-        <input type="button" value="Delete" (click)="onDelete(result)"/></td>
+      <td><input type="button" value="Edit" (click)="onEdit(result)" class="btn btn-xs btn-warning"/>
+        <input type="button" value="Delete" (click)="onDelete(result)" class="btn btn-xs btn-danger"/></td>
     </tr>
     </tbody>
   </table>
@@ -30,4 +30,4 @@
   This quiz has no results (yet):
   click the <strong>Add a new Result</strong> button to add the first one!
 </div>
-<input type="button" value="Add a new Result" (click)="onCreate()"/>
+<input type="button" value="Add a new Result" (click)="onCreate()" class="btn btn-xs btn-primary"/>
