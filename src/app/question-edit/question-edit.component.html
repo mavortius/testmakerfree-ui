@@ -1,14 +1,26 @@
 <h2>{{title}}</h2>
 <div class="question-edit">
-  <div class="form-group">
-    <label for="text">Question text:</label>
-    <br>
-    <textarea id="text" [(ngModel)]="question.text" placeholder="Enter a suitable text..." class="form-control"></textarea>
-  </div>
-  <div>
-    <input *ngIf="editMode" type="button" value="Apply Changes" (click)="onSubmit(question)" class="btn btn-sm btn-success"/>
-    <input *ngIf="!editMode" type="button" value="Create the Question!" (click)="onSubmit(question)" class="btn btn-sm btn-success"/>
-    <input type="button" value="Cancel" (click)="onBack()" class="btn btn-sm btn-default"/>
-  </div>
-<app-answer-list *ngIf="editMode" [question]="question"></app-answer-list>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group" [ngClass]="{ 'has-error has-feedback' : hasError('text') }">
+      <label for="text">Question text:</label>
+      <br>
+      <textarea id="text" formControlName="text" placeholder="Enter a suitable text..." class="form-control"></textarea>
+      <span *ngIf="hasError('text')" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+      <div *ngIf="hasError('text')" class="help-block">
+        Text is a required field: please insert a valid text.
+      </div>
+    </div>
+    <div>
+      <button *ngIf="editMode" type="submit" [disabled]="form.invalid" class="btn btn-sm btn-success">
+        Apply Changes
+      </button>
+      <button *ngIf="!editMode" type="submit" [disabled]="form.invalid" class="btn btn-sm btn-success">
+        Create the Question!
+      </button>
+      <button *ngIf="!editMode" type="button" (click)="onBack()" class="btn btn-sm btn-default">
+        Cancel
+      </button>
+    </div>
+  </form>
+  <app-answer-list *ngIf="editMode" [question]="question"></app-answer-list>
 </div>

@@ -1,22 +1,36 @@
 <h2>{{title}}</h2>
 <div class="answer-edit">
-  <div class="form-group">
-    <label for="text">Answer text:</label>
-    <br>
-    <textarea id="text" [(ngModel)]="answer.text" placeholder="enter a suitable text..." class="form-control"></textarea>
-  </div>
-  <div>
-    <label for="value">Score value:</label>
-    <br>
-    <select id="value" name="value" [(ngModel)]="answer.value">
-      <option *ngFor="let num of [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]" [value]="num">{{num}}</option>
-    </select>
-  </div>
-  <div>
-    <input *ngIf="editMode" type="button" value="Apply Changes" (click)="onSubmit(answer)"
-           class="btn btn-sm btn-success"/>
-    <input *ngIf="!editMode" type="button" value="Create the Answer!" (click)="onSubmit(answer)"
-           class="btn btn-sm btn-success"/>
-    <input type="button" value="Cancel" (click)="onBack()" class="btn btn-sm btn-default"/>
-  </div>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group" [ngClass]="{ 'has-error has-feedback' : hasError('text') }">
+      <label for="text">Answer text:</label>
+      <br>
+      <textarea id="text" formControlName="text" required placeholder="enter a suitable text..." class="form-control"></textarea>
+      <span *ngIf="hasError('text')" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+      <div *ngIf="hasError('text')" class="help-block">
+        Text is a required field: please insert a valid text.
+      </div>
+    </div>
+    <div class="form-group" [ngClass]="{ 'has-error has-feedback' : hasError('value') }">
+      <label for="value">Score value:</label>
+      <br>
+      <select id="value" formControlName="value" required class="form-control">
+        <option value="">Pick a value...</option>
+        <option *ngFor="let num of [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]" [value]="num">{{num}}</option>
+      </select>
+      <div *ngIf="hasError('value')" class="help-block">
+        Please select a valid number between -5 and 5.
+      </div>
+    </div>
+    <div>
+      <button *ngIf="editMode" type="submit" [disabled]="form.invalid" class="btn btn-sm btn-success">
+        Apply Changes
+      </button>
+      <button *ngIf="!editMode" type="submit" [disabled]="form.invalid" class="btn btn-sm btn-success">
+        Create the Answer!
+      </button>
+      <button *ngIf="!editMode" type="button" (click)="onBack()" class="btn btn-sm btn-default">
+        Cancel
+      </button>
+    </div>
+  </form>
 </div>
