@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
@@ -21,6 +21,7 @@ import {ResultListComponent} from './result-list/result-list.component';
 import {ResultEditComponent} from './result-edit/result-edit.component';
 import {QuizSearchComponent} from './quiz-search/quiz-search.component';
 import {AuthService} from './services/auth.service';
+import {AuthInterceptor} from './services/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,11 @@ import {AuthService} from './services/auth.service';
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {
