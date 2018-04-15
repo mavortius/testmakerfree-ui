@@ -4,6 +4,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 import {environment} from '../../environments/environment';
 
+import {AuthService} from '../services/auth.service';
+
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
@@ -14,7 +16,8 @@ export class QuizComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
-              private http: HttpClient) {
+              private http: HttpClient,
+              public auth: AuthService) {
   }
 
   ngOnInit() {

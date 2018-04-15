@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+
+import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-navmenu',
@@ -7,4 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavmenuComponent {
 
+  constructor(public auth: AuthService,
+              private router: Router) {
+  }
+
+  logout(): boolean {
+    if(this.auth.logout()) {
+      this.router.navigate(['']);
+    }
+    return false;
+  }
 }
