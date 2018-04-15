@@ -26,6 +26,22 @@ export class AuthService {
       client_secret: 'offline_access profile email'
     };
 
+    return this.getAuthFromServer(url, data);
+  }
+
+  refreshToken(): Observable<any> {
+    const url = `${environment.apiUrl}/api/token/auth`;
+    const data = {
+      client_id: this.clientId,
+      grant_type: 'refresh_token',
+      refresh_token: this.getAuth()!.refresh_token,
+      scope: 'offline_access profile email'
+    };
+
+    return this.getAuthFromServer(url, data);
+  }
+
+  getAuthFromServer(url: string, data: any): Observable<any> {
     return this.http.post<TokenResponse>(url, data)
       .map((res) => {
         const token = res && res.token;
@@ -74,4 +90,6 @@ export class AuthService {
     }
     return false;
   }
+
+
 }

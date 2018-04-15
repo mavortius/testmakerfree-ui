@@ -22,6 +22,7 @@ import {ResultEditComponent} from './result-edit/result-edit.component';
 import {QuizSearchComponent} from './quiz-search/quiz-search.component';
 import {AuthService} from './services/auth.service';
 import {AuthInterceptor} from './services/auth.interceptor';
+import {AuthResponseInterceptor} from './services/auth.response.interceptor';
 
 @NgModule({
   declarations: [
@@ -49,11 +50,18 @@ import {AuthInterceptor} from './services/auth.interceptor';
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [AuthService, {
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi: true
-  }],
+  providers: [
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthResponseInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule {
