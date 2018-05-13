@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     const password = this.form.value.Password;
 
     this.authService.login(username, password)
-      .subscribe(res => {
+      .subscribe(() => {
           alert('Login successful! '
             + 'USERNAME: '
             + username
@@ -64,19 +64,19 @@ export class LoginComponent implements OnInit {
 
 // returns TRUE if the FormControl is valid
   isValid(name: string) {
-    let e = this.getFormControl(name);
+    const e = this.getFormControl(name);
     return e && e.valid;
   }
 
 // returns TRUE if the FormControl has been changed
   isChanged(name: string) {
-    let e = this.getFormControl(name);
+    const e = this.getFormControl(name);
     return e && (e.dirty || e.touched);
   }
 
 // returns TRUE if the FormControl is invalid after user changes
   hasError(name: string) {
-    let e = this.getFormControl(name);
+    const e = this.getFormControl(name);
     return e && (e.dirty || e.touched) && !e.valid;
   }
 }
